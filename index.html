@@ -28,11 +28,21 @@
   </footer>
   <script src="data.js"></script>
   <script src="engine.js"></script>
+  <script src="engine-b.js"></script>
   <script src="war-hook.js"></script>
   <script src="app.js"></script>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js");
+    }
+    window.addEventListener("error", function () {
+      var app = document.getElementById("app");
+      if (app && !app.firstChild) {
+        app.innerHTML = "<div class=\"card\"><p>The page did not start. Refresh once. If it is still blank, clear the site data and open it again.</p></div>";
+      }
+    });
+    if (typeof render !== "function") {
+      document.getElementById("app").innerHTML = "<div class=\"card\"><p>The app files did not load. Refresh, or wait for the site to finish updating.</p></div>";
     }
   </script>
 </body>
