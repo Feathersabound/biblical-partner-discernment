@@ -2,8 +2,8 @@ var _page = incidentPage;
 incidentPage = function () {
   if (state.step !== 0) return _page();
   return "<div class=\"card\"><h2>You first</h2>" +
-    "<p class=\"note\">Truth is in Scripture and in a living walk with God. Test yourself there first. Invitation, not a verdict. The aim is the mind of Christ.</p>" +
-    radios("Does this line up with Scripture and with God, or only with how I feel?", "wordOrFeel", ["With Scripture and God", "Mostly with how I feel", "I am not sure yet"]) +
+    "<p class=\"note\">Truth is in Scripture and in a living walk with God. An untested thought is not truth. An old experience is not this moment. A past fact glued to a dark feeling is not a new word from God.</p>" +
+    radios("What am I treating as true that I have not tested against Scripture and God?", "wordOrFeel", ["I have tested this with the Word and with God", "A thought I have not tested", "Something from the past I have not checked", "An old fact now stuck to a dark feeling", "I am not sure yet"]) +
     radios("When someone points out something you could do differently, what is your first inner reaction — before you speak?", "firstReact", ["I tighten or shut down", "I defend", "I hit back", "I listen and test it", "Not sure"]) +
     radios("Have you often found it hard to receive feedback from people close to you, even when you now think they meant well?", "hardFeedback", ["Yes", "Sometimes", "No"]) +
     radios("Do you find it easier to believe the negative things said about you than the positive?", "believeNeg", ["Yes", "Sometimes", "No"]) +
@@ -14,10 +14,11 @@ incidentPage = function () {
 var _planW = interactionPlan;
 interactionPlan = function () {
   var plan = _planW();
-  if (state.wordOrFeel && state.wordOrFeel.indexOf("feel") >= 0) {
-    plan.pattern = "This is lining up with how you feel more than with Scripture and God.";
-    plan.stop = "Stop treating the feeling as the measure.";
-    plan.doNow = "Name one verse or one thing God has already said. Test the feeling against that.";
+  var v = state.wordOrFeel || "";
+  if (v.indexOf("not tested") >= 0 || v.indexOf("past") >= 0 || v.indexOf("stuck") >= 0) {
+    plan.pattern = "You are treating something as true that has not been tested with Scripture and God.";
+    plan.stop = "Stop using an untested thought, an old story, or a dark feeling as the measure.";
+    plan.doNow = "Name the thought. Name the old experience. Test it against the Word. Then look at what they actually said today.";
   }
   return plan;
 };
