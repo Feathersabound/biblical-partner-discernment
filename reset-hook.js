@@ -1,32 +1,47 @@
 var _extra3 = extraQuestions;
 extraQuestions = function () {
   var q = [];
-  q.push(["thinkError", "What was off in my thinking before I spoke to them?", ["I assumed what they meant", "I treated a feeling as proof", "I treated being different as an attack", "I kept an old list", "I cannot see an error yet"]]);
-  q.push(["doError", "What was off in what I did?", ["I did not ask", "I spoke harm or a curse", "I tried to win", "I held back a right thing", "I cannot see an error yet"]]);
-  q.push(["feelError", "What was off in what I felt?", ["I snapped", "I used the feeling as if it were a fact", "I felt rejected when they led or corrected", "I cannot see an error yet"]]);
-  q.push(["resetSelf", "Have I reset that with God before I go to them?", ["Yes", "Not yet", "I need help to see it"]]);
+  q.push(["firstReact", "When someone points out something you could do differently, what is your first inner reaction — before you speak?", ["I tighten or shut down", "I defend", "I hit back", "I listen and test it", "Not sure"]]);
+  q.push(["hardFeedback", "Have you often found it hard to receive feedback from people close to you, even when you now think they meant well?", ["Yes", "Sometimes", "No", "Not sure"]]);
+  q.push(["believeNeg", "Do you find it easier to believe the negative things said about you than the positive?", ["Yes", "Sometimes", "No"]]);
+  q.push(["whenHurt", "When you feel hurt in your marriage, do you tend to go quiet, defend yourself, or go on the attack?", ["Go quiet", "Defend myself", "Go on the attack", "It depends"]]);
+  q.push(["leadBy", "Would you say your emotions usually lead your decisions, or does truth lead your emotions?", ["Emotions usually lead", "Truth usually leads", "It depends"]]);
+  q.push(["resetSelf", "Have I taken this to God before I go to them?", ["Yes", "Not yet"]]);
   q.push(["theirWords", "Have I written what they actually said, not my story about it?", ["Yes", "Not yet"]]);
-  q.push(["hearThem", "When I add their words, what might be off in how I heard them?", ["I heard an attack that may not be there", "They may have been different, not against me", "Their words were actually wrong and I need to test that", "I have not added their words yet"]]);
   return q.concat(_extra3());
 };
 
 var _plan3 = interactionPlan;
 interactionPlan = function () {
   var plan = _plan3();
+  var notes = [];
+  if (state.firstReact && state.firstReact !== "I listen and test it" && state.firstReact !== "Not sure") {
+    notes.push("Your first move is to protect, not to test. That can make even a kind word sound like a blow.");
+  }
+  if (state.hardFeedback === "Yes" || state.hardFeedback === "Sometimes") {
+    notes.push("It may be hard to receive from people close to you. Check that before you judge what your spouse meant.");
+  }
+  if (state.believeNeg === "Yes" || state.believeNeg === "Sometimes") {
+    notes.push("You may take the dark word as true faster than the good one. Ask if that is happening here.");
+  }
+  if (state.whenHurt === "Go quiet" || state.whenHurt === "Defend myself" || state.whenHurt === "Go on the attack") {
+    notes.push("When you are hurt you " + state.whenHurt.toLowerCase() + ". That is a pattern to see, not a verdict on your worth.");
+  }
+  if (state.leadBy === "Emotions usually lead") {
+    notes.push("If feeling leads, truth has to catch up. Let what is true lead the feeling.");
+  }
+  if (notes.length) {
+    plan.extra.push("There may be a pattern here worth seeing before we look at what is happening between you and your spouse. The aim is the mind of Christ, not shame.");
+    notes.forEach(function (n) { plan.extra.push(n); });
+  }
   if (state.resetSelf !== "Yes") {
-    plan.pattern = "Deal with yourself first. An untested thought, act, or feeling will spill onto them.";
-    plan.stop = "Do not go to them until you have named what was off in you.";
-    plan.say = "Lord, this is what was off in me. I give it to You. Then I will ask them what they meant.";
-    plan.doNow = "Name the error. Reset it with God. Then write what they actually said.";
+    plan.pattern = "See yourself first.";
+    plan.stop = "Do not go to them until you have named how you hear and how you react.";
+    plan.say = "Lord, show me how I hear. Then I will look at what they said.";
+    plan.doNow = "Answer those questions honestly. Give what you see to God.";
   } else if (state.theirWords !== "Yes") {
-    plan.pattern = "You have looked at yourself. Now add their words, not your story.";
-    plan.doNow = "Write only what they said or did. Test it the same way you tested yourself.";
-  } else if (state.hearThem && state.hearThem.indexOf("attack") >= 0) {
-    plan.pattern = "You may have heard an attack that was not there.";
-    plan.say = "I think I heard this as against me. Is that what you meant?";
-    plan.doNow = "Ask. If they were not against you, take that charge back.";
-  } else {
-    plan.extra.push("You have started resolution: you first, then their words, then one true next step together.");
+    plan.pattern = "You have looked at yourself. Now bring one real thing they said.";
+    plan.doNow = "Write their words. Test them the same way. Then take one step toward peace.";
   }
   return plan;
 };
