@@ -2,8 +2,9 @@ var _page = incidentPage;
 incidentPage = function () {
   if (state.step !== 0) return _page();
   return "<div class=\"card\"><h2>You first</h2>" +
-    "<p class=\"note\">This is spiritual. An untested thought, an old story, or a past fact glued to a dark feeling can become a hold — a lie given a place. Truth is in Scripture and in a living walk with God. Take the thought captive. Test it. Do not agree with it as if it were His word.</p>" +
+    "<p class=\"note\">This is spiritual. An untested thought can become a hold. Sometimes fear, old rejection, or betrayal makes it too painful to look. Pain is real. It is not permission to leave a lie in place. Ask God for courage to examine one thought with Him. You do not have to reopen everything.</p>" +
     radios("What am I treating as true that I have not tested against Scripture and God?", "wordOrFeel", ["I have tested this with the Word and with God", "A thought I have not tested", "Something from the past I have not checked", "An old fact now stuck to a dark feeling", "I am not sure yet"]) +
+    radios("If it is hard to look, what makes it hard?", "hardLook", ["Fear", "Old rejection, betrayal, or a wound", "It is not hard", "I do not know"]) +
     radios("When someone points out something you could do differently, what is your first inner reaction — before you speak?", "firstReact", ["I tighten or shut down", "I defend", "I hit back", "I listen and test it", "Not sure"]) +
     radios("Have you often found it hard to receive feedback from people close to you, even when you now think they meant well?", "hardFeedback", ["Yes", "Sometimes", "No"]) +
     radios("Do you find it easier to believe the negative things said about you than the positive?", "believeNeg", ["Yes", "Sometimes", "No"]) +
@@ -20,6 +21,9 @@ interactionPlan = function () {
     plan.stop = "Stop agreeing with what God has not said.";
     plan.say = "Lord, I take this thought captive. I will not call it truth until it stands with Your Word.";
     plan.doNow = "Name the lie. Refuse it. Ask God what is true. Then look at what they actually said today. 2 Corinthians 10:4-5.";
+  }
+  if (state.hardLook === "Fear" || (state.hardLook || "").indexOf("rejection") >= 0) {
+    plan.extra.push("It may be too painful to look. Ask God for courage to examine one thought with Him. You do not reopen the whole past. You do not leave the lie standing.");
   }
   return plan;
 };
