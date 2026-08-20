@@ -1,8 +1,9 @@
-const CACHE = "walk-in-truth-v2";
+const CACHE = "walk-in-truth-v3";
 const FILES = [
   "./",
   "./index.html",
   "./styles.css",
+  "./data.js",
   "./app.js",
   "./manifest.json",
   "./icon.svg"
