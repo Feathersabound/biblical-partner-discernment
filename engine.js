@@ -5,15 +5,13 @@ function blankIncident() {
   return {
     step: 0,
     relationship: "", believers: "", fact: "", interpretation: "", asked: "",
-    belief: "", checkedPartner: "", checkedScripture: "", source: "",
-    speech: "", delivery: "", triggerSources: [], triggerNow: "",
-    spiritual: [], surrenderYou: "", surrenderThem: "", surrenderTogether: "",
-    traits: [], angerSpeed: "", accounting: "", role: "",
+    belief: "", speech: "", triggerSources: [],
+    surrenderYou: "", surrenderThem: "", surrenderTogether: "",
+    angerSpeed: "", accounting: "", role: "",
     togetherWho: "", repairId: "", repairDone: "",
     blockedAsk: "", withheldObey: "", heAskedSin: "", IHarmed: "",
-    constructiveAim: "", forgiveNow: "", showMore: "",
-    needGod: "", thankOne: "", reconcileWanted: "",
-    spokeCurse: "", receivedCurse: ""
+    forgiveNow: "", needGod: "", thankOne: "", spokeCurse: "",
+    wifeChallenge: ""
   };
 }
 
@@ -30,8 +28,8 @@ function loadWalk() {
   catch (e) { return {}; }
 }
 function markWalk() {
-  const w = loadWalk();
-  const t = todayKey();
+  var w = loadWalk();
+  var t = todayKey();
   if (w.lastDay === t) w.stepsToday = (w.stepsToday || 0) + 1;
   else {
     w.streak = w.lastDay === yesterdayKey() ? (w.streak || 0) + 1 : 1;
@@ -42,13 +40,13 @@ function markWalk() {
   localStorage.setItem(KEY + "-walk", JSON.stringify(w));
 }
 function addEntry(entry) {
-  const list = loadLog();
+  var list = loadLog();
   list.unshift({ id: Date.now(), at: new Date().toISOString(), ...entry });
   saveLog(list.slice(0, 200));
   markWalk();
 }
 function el(html) {
-  const d = document.createElement("div");
+  var d = document.createElement("div");
   d.innerHTML = html.trim();
   return d.firstElementChild;
 }
@@ -64,11 +62,11 @@ function when(iso) {
   try { return new Date(iso).toLocaleString(); } catch (e) { return iso; }
 }
 function renderTabs() {
-  const nav = document.getElementById("tabs");
+  var nav = document.getElementById("tabs");
   if (!nav) return;
   nav.innerHTML = "";
-  MODES.forEach(name => {
-    const b = document.createElement("button");
+  MODES.forEach(function (name) {
+    var b = document.createElement("button");
     b.textContent = LABELS[name] || name;
     if (name === mode) b.className = "on";
     b.onclick = function () {
@@ -145,32 +143,25 @@ function interactionPlan() {
   }
   if (state.speech && (state.speech.indexOf("Accusation") >= 0 || state.speech.indexOf("Curse") >= 0 || state.spokeCurse === "Yes")) {
     plan.pattern = "Your mouth spoke death or a curse.";
-    plan.stop = "Stop speaking death. Blessing and cursing must not come from the same mouth.";
+    plan.stop = "Stop speaking death.";
     plan.say = "Lord, I take those words back. I bless them instead.";
     plan.doNow = "Take the words back out loud. Then speak a blessing.";
   }
-  if (state.angerSpeed && state.angerSpeed.indexOf("quickly") >= 0) {
-    plan.stop = "Stop answering while you are hot.";
-    plan.doNow = "Wait. Then say one fact in a calm voice.";
+  if (state.wifeChallenge && state.wifeChallenge.indexOf("Combat") >= 0) {
+    plan.pattern = "This was combat, not a loving provocation toward godliness.";
+    plan.stop = "Stop competing with him. That usually does the opposite of what you want.";
+    plan.say = "I want to encourage you toward God, not to win.";
+    plan.doNow = "Challenge him toward Christ with honour, a quiet and noble spirit.";
   }
-  if (state.accounting && state.accounting.indexOf("ledger") >= 0) {
-    plan.pattern = "You added this to an old list of who they are.";
-    plan.later = "Deal with this one fact only. Give the old list to God.";
-  }
-  if ((state.triggerSources || []).some(function (s) { return s !== "None I can name"; })) {
-    plan.pattern = "An old hurt is making today sound worse.";
-    plan.say = "This hit an old place in me. I still need to know what you meant just now.";
+  if (state.wifeChallenge && state.wifeChallenge.indexOf("godliness") >= 0) {
+    plan.extra.push("A wife may challenge her husband. Quiet, noble, submissive strength moves a man more than combat.");
   }
   if (dating) plan.later = "This is not marriage. Do not act as if those vows are already made.";
   if (married && state.role === "Wife") {
-    plan.later = "Do not refuse a right act of obedience because of a feeling you have not checked. If he asked you to sin, refuse the sin.";
+    plan.later = "Obey as unto the Lord, not because he is better. If he leads you into sin or away from Christ, obey God, not that lead.";
   }
   if (married && state.role === "Husband") {
-    plan.later = "Lead by what you do. Do not speak harm. Care for her.";
-  }
-  if (state.needGod === "I am not safe") {
-    plan.pattern = "Safety comes first.";
-    plan.doNow = "Get safe. Tell a trusted person.";
+    plan.later = "Lead, protect, guide. Do not use your place to push her into sin or off the path.";
   }
   return plan;
 }
@@ -178,15 +169,15 @@ function extraQuestions() {
   var q = [];
   if (state.asked !== "Yes") q.push(["blockedAsk", "What stopped you asking?", ["I was afraid", "I was sure", "I did not think of it", "Not sure"]]);
   if (marriedRole("Wife")) {
+    q.push(["wifeChallenge", "Was this a loving provocation toward godliness, or was it combat?", ["Toward godliness", "Combat / to win", "A mix", "Not sure"]]);
     q.push(["withheldObey", "Did you hold back a right act of obedience?", ["Yes", "No", "Not sure"]]);
-    q.push(["heAskedSin", "Did he ask you to sin?", ["Yes", "No", "Not sure"]]);
+    q.push(["heAskedSin", "Did he lead you into sin or away from Christ-centred obedience?", ["Yes", "No", "Not sure"]]);
   }
-  if (marriedRole("Husband")) q.push(["IHarmed", "Did you use your place to hurt or speak harm?", ["Yes", "No", "Not sure"]]);
+  if (marriedRole("Husband")) q.push(["IHarmed", "Did you use your place to push her into sin or off the path?", ["Yes", "No", "Not sure"]]);
   q.push(["forgiveNow", "Have you forgiven this before God?", ["Yes", "No", "Not yet"]]);
-  q.push(["needGod", "Is this too big for you alone?", ["Yes — I need God", "I can do the next step", "I am not safe"]]);
+  q.push(["needGod", "Is this too big for you alone?", ["Yes — I need God", "I can do the next step"]]);
   q.push(["thankOne", "Can you thank God for one true thing in this?", ["Yes", "Not yet"]]);
   q.push(["spokeCurse", "Did you speak a curse or death over them?", ["Yes", "No", "Not sure"]]);
-  q.push(["reconcileWanted", "Do you want to make peace, if it is safe?", ["Yes", "Not yet", "It is not safe"]]);
   return q;
 }
 function marriedRole(role) {
