@@ -2,16 +2,34 @@ STEPS.length = 0;
 STEPS.push("You", "Who", "What", "Plan");
 LABELS.Incident = "The walk";
 
+(function fixPractices() {
+  for (var i = 0; i < PRACTICES.length; i++) {
+    var p = PRACTICES[i];
+    if (p.id === "trigger") {
+      p.title = "Name what you have not tested";
+      p.text = "If an old thought or old story is being treated as today\u2019s truth, name it. If you cannot name it, you cannot deal with it. Then test it with God. Then look at what they said.";
+    }
+    if (p.id === "need-god") {
+      p.title = "Forgiveness, or a lead into sin";
+      p.text = "These are two different things. Forgiveness is for healing and for any real relationship. Leading someone into sin or away from Christ is another. Either spouse can do that.";
+    }
+    if (p.id === "reconcile") {
+      p.text = "Go to them. Own your part. Do not wait for them to own theirs first.";
+    }
+  }
+})();
+
 let mode = "Home";
 const state = blankIncident();
 let toast = "";
 
 function blankIncident() {
   return {
-    step: 0, relationship: "", believers: "", fact: "", interpretation: "", asked: "",
-    speech: "", role: "", firstReact: "", hardFeedback: "", believeNeg: "", whenHurt: "", leadBy: "",
-    wifeChallenge: "", husbandHear: "", wifeDirect: "", withheldObey: "", heAskedSin: "", IHarmed: "",
-    selfToGod: "", spokeCurse: "", forgiveNow: ""
+    step: 0, relationship: "", believers: "", fact: "", interpretation: "", asked: "", role: "",
+    firstReact: "", hardFeedback: "", believeNeg: "", whenHurt: "", leadBy: "",
+    wordOrFeel: "", hardLook: "", loved: "",
+    wifeChallenge: "", husbandHear: "", wifeDirect: "", selfToGod: "", spokeCurse: "",
+    ILedSin: "", theyLedSin: "", forgiveWalk: "", inviteGod: "", chooseGod: "", declareWord: "", healWalk: ""
   };
 }
 function loadLog() {
@@ -91,12 +109,13 @@ function marriedRole(role) {
 }
 function incidentPage() {
   if (state.step === 0) {
-    return "<div class=\"card\"><h2>You first</h2><p class=\"note\">Look at how you hear before we look at them. Invitation, not a verdict. The aim is the mind of Christ.</p>" +
-      radios("When someone points out something you could do differently, what is your first inner reaction — before you speak?", "firstReact", ["I tighten or shut down", "I defend", "I hit back", "I listen and test it", "Not sure"]) +
-      radios("Have you often found it hard to receive feedback from people close to you, even when you now think they meant well?", "hardFeedback", ["Yes", "Sometimes", "No"]) +
-      radios("Do you find it easier to believe the negative things said about you than the positive?", "believeNeg", ["Yes", "Sometimes", "No"]) +
-      radios("When you feel hurt in your marriage, do you tend to go quiet, defend yourself, or go on the attack?", "whenHurt", ["Go quiet", "Defend myself", "Go on the attack", "It depends"]) +
-      radios("Do your emotions usually lead your decisions, or does truth lead your emotions?", "leadBy", ["Emotions usually lead", "Truth usually leads", "It depends"]) +
+    return "<div class=\"card\"><h2>You first</h2>" +
+      "<p class=\"note\">Truth is in Scripture and in a walk with God. God loves you. An untested thought can become a hold. If you cannot name it, you cannot deal with it.</p>" +
+      radios("Do I receive that God loves me, or have I put my experience above His Word and His nature?", "loved", ["I receive that He loves me", "I struggle to believe it", "I have put my experience first", "I am not sure"]) +
+      radios("What am I treating as true that I have not tested against Scripture and God?", "wordOrFeel", ["I have tested this with the Word and with God", "A thought I have not tested", "Something from the past I have not checked", "An old fact now stuck to a dark feeling", "I am not sure yet"]) +
+      radios("If it is hard to look, what makes it hard?", "hardLook", ["Fear", "Old rejection, betrayal, or a wound", "It is not hard", "I do not know"]) +
+      radios("When someone points out something I could do differently, what is my first inner reaction?", "firstReact", ["I tighten or shut down", "I defend", "I hit back", "I listen and test it", "Not sure"]) +
+      radios("Do my emotions usually lead, or does truth lead my emotions?", "leadBy", ["Emotions usually lead", "Truth usually leads", "It depends"]) +
       actions() + "</div>";
   }
   if (state.step === 1) {
@@ -118,69 +137,101 @@ function incidentPage() {
 function extraQuestions() {
   var q = [];
   q.push(["selfToGod", "Did I submit myself to God in this, or only ask them to change?", ["I submitted myself", "I only asked them to change", "A mix"]]);
+  q.push(["ILedSin", "Did I use my place or my strengths to lead them into sin or away from Christ?", ["Yes", "No", "Not sure"]]);
+  q.push(["theyLedSin", "Did they lead me into sin or away from Christ?", ["Yes", "No", "Not sure"]]);
+  q.push(["forgiveWalk", "Have I received His forgiveness, and will I give it?", ["I receive and I give", "I receive, I have not given", "I have not received yet"]]);
   if (marriedRole("Wife")) {
     q.push(["wifeChallenge", "Was this a loving provocation toward godliness, or was I trying to win?", ["Toward godliness", "Trying to win", "A mix"]]);
     q.push(["wifeDirect", "Was I directing him rather than encouraging him?", ["Yes", "No", "Not sure"]]);
-    q.push(["heAskedSin", "Did he lead me into sin or away from Christ-centred obedience?", ["Yes", "No", "Not sure"]]);
   }
   if (marriedRole("Husband")) {
     q.push(["husbandHear", "Did I receive her challenge as help toward God, or as a threat to my place?", ["Help toward God", "A threat to my place", "I did not hear a challenge"]]);
-    q.push(["IHarmed", "Was I kind and gentle, or did I use my place to push her off the path?", ["Kind and gentle", "I used my place wrongly", "A mix"]]);
   }
   q.push(["spokeCurse", "Did I speak death over them?", ["Yes", "No"]]);
+  q.push(["inviteGod", "Will I invite God into this — mind, feeling, past, family?", ["Yes", "Not yet"]]);
+  q.push(["declareWord", "Will I say His Word, repeat it, and believe it?", ["Yes", "Not yet"]]);
   return q;
 }
 function interactionPlan() {
   var plan = {
-    pattern: "See yourself first. Then test their words. Then take one step toward peace.",
-    stop: "Stop treating a guess or a feeling as if it were already true.",
-    say: "I want to check something. What did you mean?",
-    doNow: "Ask. Write their answer next to yours.",
-    later: "This is not a battle of the sexes. Submit yourself to God. Both will miss. The aim is healing, clearer speech, unity, and appreciation.",
+    pattern: "See yourself before God. Then test their words. Then take one step toward peace.",
+    stop: "Stop treating an untested thought as if God had said it.",
+    say: "Lord, I choose You. What did they actually mean?",
+    doNow: "Test this with Scripture and God. Then ask them.",
+    later: "You are loved. Submit yourself to God. They are not the enemy.",
     extra: []
   };
-  if (state.firstReact && state.firstReact !== "I listen and test it" && state.firstReact !== "Not sure") {
-    plan.extra.push("Your first move is to protect, not to test. That can make even a kind word sound like a blow.");
+  if (state.ILedSin === "Yes") {
+    plan.pattern = "You used what you have been given to pull them off the path.";
+    plan.stop = "Stop that lead.";
+    plan.say = "I was wrong to pull you away from Christ.";
+    plan.doNow = "Repent to God. Then to them.";
+    return plan;
   }
-  if (state.hardFeedback === "Yes" || state.hardFeedback === "Sometimes") {
-    plan.extra.push("It may be hard to receive from people close to you. See that before you judge what they meant.");
-  }
-  if (state.believeNeg === "Yes" || state.believeNeg === "Sometimes") {
-    plan.extra.push("You may take the dark word as true faster than the good one.");
-  }
-  if (state.leadBy === "Emotions usually lead") {
-    plan.extra.push("Let what is true lead the feeling.");
-  }
-  if (state.asked !== "Yes") {
-    plan.pattern = "You decided what they meant without asking.";
-    plan.say = "I assumed you meant ______. Is that what you meant?";
-  }
-  if (state.wifeChallenge && state.wifeChallenge.indexOf("win") >= 0) {
-    plan.stop = "Stop trying to win. A quiet, noble challenge toward God moves a man more than that.";
-  }
-  if (state.wifeDirect === "Yes") {
-    plan.extra.push("Directing him is not the same as encouraging him. He can let you run a thing without giving away his place.");
-  }
-  if (state.husbandHear && state.husbandHear.indexOf("threat") >= 0) {
-    plan.stop = "She may be calling you toward God. That is not a threat to your place.";
-  }
-  if (state.selfToGod && state.selfToGod.indexOf("only asked") >= 0) {
-    plan.doNow = "Submit this to God yourself before you ask them to change.";
+  if (state.theyLedSin === "Yes") {
+    plan.pattern = "They are leading you into sin or away from Christ.";
+    plan.stop = "Do not call that obedience.";
+    plan.say = "I cannot go that way. I will obey God.";
+    plan.doNow = "Obey God. Do not follow that lead.";
+    return plan;
   }
   if (state.spokeCurse === "Yes") {
-    plan.say = "Lord, I take those words back. I bless them instead.";
+    plan.pattern = "Death was spoken.";
+    plan.stop = "Stop speaking death.";
+    plan.say = "Lord, I take those words back. I bless them.";
     plan.doNow = "Take the words back. Speak life.";
+    return plan;
   }
-  if ((state.relationship || "").indexOf("Dating") >= 0) {
-    plan.later = "This is not marriage. Do not act as if those vows are already made.";
+  if ((state.wordOrFeel || "").indexOf("not tested") >= 0 || (state.wordOrFeel || "").indexOf("past") >= 0 || (state.wordOrFeel || "").indexOf("stuck") >= 0) {
+    plan.pattern = "A thought has been given a place that belongs to God.";
+    plan.stop = "Stop agreeing with what He has not said.";
+    plan.say = "Lord, I take this thought captive.";
+    plan.doNow = "Name it. If you cannot name it, you cannot deal with it. Test it by the Word.";
+    return plan;
   }
-  if (marriedRole("Wife")) {
-    plan.later = "Obey as unto the Lord, not because he is better. If he leads you into sin or away from Christ, obey God, not that lead.";
+  if (state.loved === "I have put my experience first" || state.loved === "I struggle to believe it") {
+    plan.pattern = "Experience has been set above His Word and His nature.";
+    plan.stop = "Stop using your story as the measure of His love.";
+    plan.say = "Father, You love me. I receive it.";
+    plan.doNow = "Acknowledge His love. Invite Him in. Then look at them.";
+    return plan;
   }
-  if (marriedRole("Husband")) {
-    plan.later = "Lead, protect, guide, present her to God. Be kind and gentle. Do not use your place to push her into sin.";
+  if (state.forgiveWalk === "I receive, I have not given" || state.forgiveWalk === "I have not received yet") {
+    plan.pattern = "Forgiveness is unfinished. You cannot walk with someone you will not forgive.";
+    plan.stop = "Stop holding it as a right.";
+    plan.say = "Lord, I receive Your forgiveness. I give it.";
+    plan.doNow = "Receive. Give. That is for healing and for the relationship.";
+    return plan;
   }
-  plan.extra.push("The thief comes to steal, kill, and destroy. Jesus came that you may have life. They are not the enemy.");
+  if (state.selfToGod && state.selfToGod.indexOf("only asked") >= 0) {
+    plan.pattern = "You asked them to change before you submitted yourself to God.";
+    plan.doNow = "Choose God first. Then speak.";
+    return plan;
+  }
+  if ((state.wifeChallenge || "").indexOf("win") >= 0) {
+    plan.pattern = "This was trying to win, not calling him toward God.";
+    plan.doNow = "Challenge him with honour, a quiet and noble spirit.";
+    return plan;
+  }
+  if ((state.husbandHear || "").indexOf("threat") >= 0) {
+    plan.pattern = "Her challenge was heard as a threat to your place.";
+    plan.doNow = "Receive what is true. Lead with care.";
+    return plan;
+  }
+  if (state.asked !== "Yes" && String(state.fact || "").trim()) {
+    plan.pattern = "You decided what they meant without asking.";
+    plan.say = "I assumed you meant ______. Is that what you meant?";
+    plan.doNow = "Ask. Write their answer next to yours.";
+    return plan;
+  }
+  if (state.leadBy === "Emotions usually lead") {
+    plan.pattern = "Desire and feeling are leading.";
+    plan.doNow = "Let the Word lead this feeling.";
+    return plan;
+  }
+  if ((state.relationship || "").indexOf("Dating") >= 0) plan.later = "This is not marriage. Do not act as if those vows are already made.";
+  else if (marriedRole("Wife")) plan.later = "Obey as unto the Lord. If he leads you into sin or away from Christ, obey God.";
+  else if (marriedRole("Husband")) plan.later = "Lead, protect, guide, present her toward Christ. Be kind and gentle. Do not lead her into sin.";
   return plan;
 }
 function incidentReport() {
@@ -188,7 +239,7 @@ function incidentReport() {
   var extra = (p.extra || []).map(function (t) { return "<p class=\"hit\">" + escape(t) + "</p>"; }).join("");
   var asks = extraQuestions().map(function (row) { return radios(row[1], row[0], row[2]); }).join("");
   return "<div class=\"card report\"><h2>How to walk now</h2>" +
-    "<p class=\"note\">There may be a pattern here worth seeing. The aim is the mind of Christ, not shame.</p>" +
+    "<p class=\"note\">Invitation, not a verdict. The aim is the mind of Christ.</p>" +
     "<p class=\"hit\"><strong>What is going on:</strong> " + escape(p.pattern) + "</p>" +
     "<p class=\"warn\"><strong>Stop:</strong> " + escape(p.stop) + "</p>" +
     "<p class=\"ok\"><strong>Say this:</strong> " + escape(p.say) + "</p>" +
