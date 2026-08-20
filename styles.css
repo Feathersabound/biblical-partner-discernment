@@ -8,24 +8,62 @@
   --warn: #8a2e1d;
   --ok: #2f4a3c;
   --radius: 14px;
+  --pad: clamp(0.85rem, 3vw, 1.6rem);
+  --wide: min(56rem, 100%);
   font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
 }
 
 * { box-sizing: border-box; }
-html, body { margin: 0; background: var(--paper); color: var(--ink); }
-body { max-width: 760px; margin: 0 auto; padding: 1.5rem 1.1rem 3rem; }
+html {
+  height: 100%;
+  height: 100dvh;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  min-height: 100dvh;
+  min-height: 100svh;
+  background: var(--paper);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  padding: max(var(--pad), env(safe-area-inset-top, 0px))
+    max(var(--pad), env(safe-area-inset-right, 0px))
+    max(var(--pad), env(safe-area-inset-bottom, 0px))
+    max(var(--pad), env(safe-area-inset-left, 0px));
+}
+header, #tabs, #progress, #app, footer {
+  width: 100%;
+  max-width: var(--wide);
+  margin-left: auto;
+  margin-right: auto;
+}
+#app {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+#app > .card {
+  flex: 1 1 auto;
+  width: 100%;
+}
 
-header h1 { font-size: 1.85rem; line-height: 1.15; margin: 0.2rem 0 0.4rem; }
+header h1 { font-size: clamp(1.4rem, 4vw, 2rem); line-height: 1.15; margin: 0.2rem 0 0.4rem; }
 .kicker { letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.72rem; color: var(--accent); margin: 0; }
-.lede { color: var(--muted); margin: 0 0 1.2rem; }
+.lede { color: var(--muted); margin: 0 0 1rem; }
 
-.tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1rem; }
+.tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 0.8rem; }
 .tabs button {
   border: 1px solid var(--line);
   background: var(--card);
   color: var(--ink);
   border-radius: 999px;
-  padding: 0.4rem 0.75rem;
+  padding: 0.45rem 0.75rem;
+  min-height: 2.5rem;
   font: inherit;
   font-size: 0.9rem;
   cursor: pointer;
@@ -53,7 +91,7 @@ header h1 { font-size: 1.85rem; line-height: 1.15; margin: 0.2rem 0 0.4rem; }
 }
 .log-item small { color: var(--muted); }
 
-.progress { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0 0 1.2rem; }
+.progress { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0 0 1rem; }
 .progress button {
   border: 1px solid var(--line);
   background: var(--card);
@@ -69,16 +107,17 @@ header h1 { font-size: 1.85rem; line-height: 1.15; margin: 0.2rem 0 0.4rem; }
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 1.15rem 1.1rem 1.3rem;
+  padding: clamp(0.9rem, 2.5vw, 1.4rem);
   box-shadow: 0 8px 24px rgba(40, 28, 12, 0.05);
 }
 
-h2 { font-size: 1.25rem; margin: 0 0 0.5rem; }
+h2 { font-size: clamp(1.1rem, 3vw, 1.35rem); margin: 0 0 0.5rem; }
 .note { color: var(--muted); font-size: 0.95rem; margin: 0 0 1rem; }
 
 label { display: block; font-weight: 600; margin: 0.85rem 0 0.3rem; }
 textarea, input[type="text"], select {
   width: 100%;
+  max-width: 100%;
   font: inherit;
   padding: 0.65rem 0.7rem;
   border: 1px solid var(--line);
@@ -96,14 +135,15 @@ textarea { min-height: 88px; resize: vertical; }
   align-items: flex-start;
   border: 1px solid var(--line);
   border-radius: 10px;
-  padding: 0.55rem 0.65rem;
+  padding: 0.6rem 0.65rem;
   margin: 0;
   background: #fff;
 }
 .actions { display: flex; gap: 0.6rem; margin-top: 1.1rem; flex-wrap: wrap; }
 button.primary, button.ghost {
   border-radius: 999px;
-  padding: 0.55rem 1rem;
+  padding: 0.6rem 1rem;
+  min-height: 2.6rem;
   font: inherit;
   cursor: pointer;
 }
@@ -116,21 +156,26 @@ button.ghost { background: transparent; border: 1px solid var(--line); }
 .ok { border-left: 3px solid var(--ok); padding-left: 0.7rem; }
 .scripture { font-style: italic; color: var(--muted); }
 
-footer { margin-top: 1.6rem; color: var(--muted); font-size: 0.85rem; }
+footer { margin-top: 1.2rem; color: var(--muted); font-size: 0.85rem; }
 footer p { margin: 0.35rem 0; }
 
 .bar { height: 10px; background: #e8dfd0; border-radius: 99px; overflow: hidden; margin: 0.8rem 0 1rem; }
 .bar span { display: block; height: 100%; background: var(--accent); }
 .path { display: grid; gap: 0.5rem; margin: 0.4rem 0 0.8rem; }
+@media (min-width: 720px) { .path { grid-template-columns: 1fr 1fr; } }
 .path-card {
   text-align: left;
   width: 100%;
   border: 1px solid var(--line);
   background: #fff;
   border-radius: 12px;
-  padding: 0.7rem 0.8rem;
+  padding: 0.75rem 0.85rem;
   font: inherit;
   cursor: pointer;
 }
 .path-card span { display: block; color: var(--muted); font-size: 0.9rem; margin-top: 0.15rem; }
 .path-card.done { border-color: var(--ok); background: #f3f7f4; }
+
+@media (max-width: 420px) {
+  .tabs button { font-size: 0.82rem; padding: 0.4rem 0.6rem; }
+}
