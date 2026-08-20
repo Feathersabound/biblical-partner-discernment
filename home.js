@@ -6,14 +6,13 @@ function homeView() {
   return "<div class=\"card\">" +
     (toast ? "<p class=\"ok\">" + escape(toast) + "</p>" : "") +
     "<h2>Walk in Truth</h2>" +
-    "<p>See yourself. Tell the truth. Speak life. Obey God. Heal together.</p>" +
-    "<p>A feeling is not proof. A guess is not a fact. Difference is not an attack. Your spouse is not the enemy. The thief comes to steal, kill, and destroy. Jesus came that you may have life.</p>" +
+    "<p>See yourself first. Then look at what they said. Then take one step toward peace.</p>" +
     "<div class=\"grid two\">" +
     "<div class=\"stat\"><b>" + streak + "</b><span>days you came back</span></div>" +
     "<div class=\"stat\"><b>" + todayN + "</b><span>steps today</span></div>" +
     "</div>" +
     "<div class=\"path\">" +
-    pathCard("Incident", "What happened", "Fact. Meaning. Did you ask?", done.has("incident")) +
+    pathCard("Incident", "See yourself", "How you hear. How you react. Then their words.", done.has("incident")) +
     pathCard("Repair", "Fix it", "Stop the false story. Do the opposite.", done.has("repair")) +
     pathCard("Together", "Together", "Word. Obedience. Healing. Blessing. His blood.", done.has("together")) +
     pathCard("Practice", "Practice", "One act: ask, bless, thank, or make peace.", done.has("practice")) +
