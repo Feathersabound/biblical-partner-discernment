@@ -1,20 +1,17 @@
 # Walk in Truth
 
-A simple browser app, now a PWA. You can install it on a phone and use it offline.
+PWA. Open `index.html` or deploy the folder to Netlify.
 
-## Use it
+## Modes
 
-1. Turn on GitHub Pages: Settings → Pages → branch `main` → folder `/`
-2. Open https://feathersabound.github.io/biblical-partner-discernment/
-3. On iPhone: Share → Add to Home Screen
-4. On Android Chrome: Install app
+Home (today’s walk), What happened, Today, Together, Fix it, Practice, Saved.
 
-Or open `index.html` from the folder. Keep `app.js`, `styles.css`, `manifest.json`, `sw.js`, and `icon.svg` next to it.
+## Doctrine
 
-## What it does
+Marriage is a covenant. Dating is not. A wife obeys her husband as unto the Lord, not because he is better. A husband must not abuse or command sin.
 
-Home, What happened, Today, Together, Fix it, Practice, Saved.
+The thief comes to steal, kill, and destroy. Jesus came that we may have life abundantly. The fight is not against flesh and blood.
+
+Communion: a cup set apart, the bread, then the cup of the new covenant in His blood. Discern the body — Jesus, and those who believe.
 
 Records stay on the device.
-
-The Bible comes first. Marriage is a promise before God. Dating is not.

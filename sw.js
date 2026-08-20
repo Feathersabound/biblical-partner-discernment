@@ -1,4 +1,4 @@
-const CACHE = "walk-in-truth-v4";
+const CACHE = "walk-in-truth-v5";
 const FILES = [
   "./",
   "./index.html",
