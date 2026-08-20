@@ -55,7 +55,7 @@ function checkinView() {
 }
 
 function verses(kind) {
-  return WORD[kind].map(v => `<p class="scripture"><strong>${escape(v.ref)}</strong> — ${escape(v.text)}</p>`).join("");
+  return (WORD[kind] || []).map(v => `<p class="scripture"><strong>${escape(v.ref)}</strong> — ${escape(v.text)}</p>`).join("");
 }
 
 function togetherView() {
@@ -74,6 +74,15 @@ function togetherView() {
       <h3>3. Healing</h3>
       ${verses("healing")}
       <label>What must be confessed, forgiven, or bound up?<textarea name="heardHealing"></textarea></label>
+      <h3>4. Blessing, not cursing</h3>
+      ${verses("blessing")}
+      <p class="note">If you spoke death, take the words back. Speak life. Do not repeat the curse.</p>
+      <h3>5. The new covenant</h3>
+      ${verses("covenant")}
+      <p class="note">Luke shows a cup, then the bread, then a cup after the meal. Christ is the true Passover. Discern the body: Jesus, and those who believe.</p>
+      <h3>6. We are in a war</h3>
+      ${verses("war")}
+      <p class="note">The thief comes to steal, kill, and destroy. Life is not always fair. Do not make your spouse the enemy. Jesus came that we may have life abundantly.</p>
       ${radios("I surrender this to the Lord", "surrenderYou", ["Yes", "Partly", "No"])}
       ${radios("The other surrenders", "surrenderThem", ["Yes", "Partly", "No", "Not present"])}
       ${radios("We agree to walk this together", "surrenderTogether", ["Yes", "Not yet", "One refuses"])}
@@ -168,7 +177,6 @@ function render() {
   else if (mode === "Practice") node = el(practiceView());
   else node = el(historyView());
   app.appendChild(node);
-
   node.querySelectorAll("[data-go]").forEach(b => {
     b.onclick = () => {
       mode = b.dataset.go;
@@ -176,7 +184,6 @@ function render() {
       render();
     };
   });
-
   if (mode === "Incident") {
     bindIncident(node);
     if (state.step >= STEPS.length - 1) {
@@ -189,10 +196,7 @@ function render() {
       mode = "Home";
       render();
     };
-    const copy = node.querySelector("#copy");
-    if (copy) copy.onclick = () => { navigator.clipboard.writeText(node.innerText).then(() => { copy.textContent = "Copied"; }); };
   }
-
   if (mode === "Check-in") {
     const form = node.querySelector("#checkin");
     bindIncident(form);
@@ -204,7 +208,6 @@ function render() {
       render();
     });
   }
-
   if (mode === "Repair") {
     node.querySelectorAll("[data-key=repairId]").forEach(n => {
       n.addEventListener("change", () => { state.repairId = n.value; render(); });
@@ -222,7 +225,6 @@ function render() {
       });
     }
   }
-
   if (mode === "Together") {
     const form = node.querySelector("#together");
     bindIncident(form);
@@ -234,7 +236,6 @@ function render() {
       render();
     });
   }
-
   if (mode === "Practice") {
     node.querySelectorAll("[data-practice]").forEach(b => {
       b.onclick = () => {
@@ -246,7 +247,6 @@ function render() {
       };
     });
   }
-
   const wipe = node.querySelector("#wipe");
   if (wipe) wipe.onclick = () => {
     if (confirm("Clear all records on this device?")) { saveLog([]); render(); }
