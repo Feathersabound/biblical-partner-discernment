@@ -5,20 +5,19 @@ function homeView() {
   var streak = w.lastDay === todayKey() || w.lastDay === yesterdayKey() ? (w.streak || 0) : 0;
   return "<div class=\"card\">" +
     (toast ? "<p class=\"ok\">" + escape(toast) + "</p>" : "") +
-    "<h2>Start here</h2>" +
-    "<p>You are in a war. Jesus said so. The thief comes to steal, kill, and destroy. That is why life is not always fair. <strong>The person next to you is not the enemy.</strong> Jesus came that you may have life, and have it abundantly.</p>" +
-    "<p>A feeling is not proof. A guess is not a fact. A curse is not prayer. Silence is not peace.</p>" +
-    "<p>Name what happened. Ask what they meant. Take back a curse. Bless. Obey God. Come to the blood of the new covenant.</p>" +
+    "<h2>Walk in Truth</h2>" +
+    "<p>See yourself. Tell the truth. Speak life. Obey God. Heal together.</p>" +
+    "<p>A feeling is not proof. A guess is not a fact. Difference is not an attack. Your spouse is not the enemy. The thief comes to steal, kill, and destroy. Jesus came that you may have life.</p>" +
     "<div class=\"grid two\">" +
     "<div class=\"stat\"><b>" + streak + "</b><span>days you came back</span></div>" +
     "<div class=\"stat\"><b>" + todayN + "</b><span>steps today</span></div>" +
     "</div>" +
     "<div class=\"path\">" +
-    pathCard("Incident", "Name what happened", "Split the fact from the story. Ask them.", done.has("incident")) +
-    pathCard("Repair", "Repent and repair", "Stop it. Do the opposite. Take back a curse.", done.has("repair")) +
-    pathCard("Together", "Sit before God together", "Hear the Word. Obey. Heal. Bless. Remember His blood.", done.has("together")) +
-    pathCard("Practice", "Do one small act", "Ask. Bless. Thank God. Make peace.", done.has("practice")) +
-    pathCard("Check-in", "A short honest look", "How did you speak today? Did you surrender?", done.has("checkin")) +
+    pathCard("Incident", "What happened", "Fact. Meaning. Did you ask?", done.has("incident")) +
+    pathCard("Repair", "Fix it", "Stop the false story. Do the opposite.", done.has("repair")) +
+    pathCard("Together", "Together", "Word. Obedience. Healing. Blessing. His blood.", done.has("together")) +
+    pathCard("Practice", "Practice", "One act: ask, bless, thank, or make peace.", done.has("practice")) +
+    pathCard("Check-in", "Today", "How did you speak? Did you give it to God?", done.has("checkin")) +
     "</div>" +
     "<p class=\"scripture\">Love is patient and kind. It does not snap. It does not keep a list of wrongs. It is glad when the truth wins.</p>" +
     "</div>";
