@@ -9,7 +9,6 @@
   <title>Walk in Truth</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="icon.svg" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -20,7 +19,15 @@
   </header>
   <nav class="tabs" id="tabs" aria-label="Modes"></nav>
   <nav class="progress" id="progress" hidden></nav>
-  <main id="app"></main>
+  <main id="app">
+    <div class="card">
+      <h2>Start here</h2>
+      <p>You are in a war. Jesus said so. The thief comes to steal, kill, and destroy. That is why life is not always fair. <strong>The person next to you is not the enemy.</strong> Jesus came that you may have life, and have it abundantly.</p>
+      <p>A feeling is not proof. A guess is not a fact. A curse is not prayer. Silence is not peace.</p>
+      <p>Name what happened. Ask what they meant. Take back a curse. Bless. Obey God. Come to the blood of the new covenant. If you are not safe, get safe first.</p>
+      <p class="note">If the buttons below do not appear, refresh once after the site finishes updating.</p>
+    </div>
+  </main>
   <footer>
     <p>The Bible comes first. This is not a doctor’s diagnosis. It is not a replacement for church or real care.</p>
     <p>Marriage is a promise before God. Dating is not. A wife obeys her husband as she would obey the Lord, not because he is better. A husband must not hurt her or tell her to sin.</p>
@@ -31,19 +38,10 @@
   <script src="engine-b.js"></script>
   <script src="war-hook.js"></script>
   <script src="app.js"></script>
+  <script src="home.js"></script>
   <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./sw.js");
-    }
-    window.addEventListener("error", function () {
-      var app = document.getElementById("app");
-      if (app && !app.firstChild) {
-        app.innerHTML = "<div class=\"card\"><p>The page did not start. Refresh once. If it is still blank, clear the site data and open it again.</p></div>";
-      }
-    });
-    if (typeof render !== "function") {
-      document.getElementById("app").innerHTML = "<div class=\"card\"><p>The app files did not load. Refresh, or wait for the site to finish updating.</p></div>";
-    }
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js");
+    try { if (typeof render === "function") render(); } catch (e) {}
   </script>
 </body>
 </html>
