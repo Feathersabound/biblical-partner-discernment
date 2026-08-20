@@ -5,7 +5,6 @@
   --card: #fffdf8;
   --line: #d8cfc0;
   --accent: #6b3f1d;
-  --accent-2: #2f4a3c;
   --warn: #8a2e1d;
   --ok: #2f4a3c;
   --radius: 14px;
@@ -112,7 +111,6 @@ button.primary { background: var(--accent); color: #fff; border: 0; }
 button.ghost { background: transparent; border: 1px solid var(--line); }
 
 .report h3 { margin: 1.1rem 0 0.35rem; font-size: 1.05rem; }
-.report p, .report li { color: var(--ink); }
 .hit { border-left: 3px solid var(--accent); padding-left: 0.7rem; margin: 0.6rem 0; }
 .warn { border-left: 3px solid var(--warn); padding-left: 0.7rem; }
 .ok { border-left: 3px solid var(--ok); padding-left: 0.7rem; }
@@ -120,3 +118,19 @@ button.ghost { background: transparent; border: 1px solid var(--line); }
 
 footer { margin-top: 1.6rem; color: var(--muted); font-size: 0.85rem; }
 footer p { margin: 0.35rem 0; }
+
+.bar { height: 10px; background: #e8dfd0; border-radius: 99px; overflow: hidden; margin: 0.8rem 0 1rem; }
+.bar span { display: block; height: 100%; background: var(--accent); }
+.path { display: grid; gap: 0.5rem; margin: 0.4rem 0 0.8rem; }
+.path-card {
+  text-align: left;
+  width: 100%;
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.7rem 0.8rem;
+  font: inherit;
+  cursor: pointer;
+}
+.path-card span { display: block; color: var(--muted); font-size: 0.9rem; margin-top: 0.15rem; }
+.path-card.done { border-color: var(--ok); background: #f3f7f4; }
